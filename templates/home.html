@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKINOLOGY CLINIC — Арьс гоо заслын мэргэжлийн эмнэлэг</title>
+  <meta name="description" content="SKINOLOGY CLINIC — дерматологи ба гоо заслын мэргэжлийн эмнэлэг. Лазер эмчилгээ, ботокс, филлер, арьс арчилгаа. Цаг захиалга: meditech.mn/book/skinology">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+{% set BOOKING_URL = 'https://www.meditech.mn/book/skinology' %}
+
+  <!-- ============ Header / Nav ============ -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#home" class="brand">
+        <span class="mark"></span>
+        <span class="brand-name">SKINOLOGY <small>CLINIC</small></span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#home">Нүүр</a></li>
+        <li><a href="#services">Үйлчилгээ</a></li>
+        <li><a href="#team">Эмч нар</a></li>
+        <li><a href="#pricing">Үнэ</a></li>
+        <li><a href="#clinic-gallery">Галерей</a></li>
+        <li><a href="#about">Бидний тухай</a></li>
+        <li><a href="#contact">Холбоо барих</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="{{ BOOKING_URL }}" class="btn btn-primary nav-book" target="_blank" rel="noopener">Цаг захиалах</a>
+        <button class="nav-toggle" aria-label="Цэс"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">SKINOLOGY CLINIC · Dermatology & Aesthetics</span>
+        <h1 class="hero-title">Арьсны эрүүл мэнд ба байгалийн гоо сайхныг <span>шинжлэх ухаанд</span> тулгуурлан</h1>
+        <p class="hero-lead">Арьс гоо заслын мэргэжлийн эмнэлэг</p>
+        <p class="hero-sub">
+          Мэргэжлийн эмч нарын баг, олон улсын стандартын технологиор таны арьсанд
+          тохирсон эмчилгээг санал болгоно.
+        </p>
+        <div class="hero-actions">
+          <a href="{{ BOOKING_URL }}" class="btn btn-primary" target="_blank" rel="noopener">Цаг захиалах</a>
+          <a href="#services" class="btn btn-outline">Үйлчилгээ үзэх</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="num">12+</div><div class="lbl">жилийн туршлага</div></div>
+          <div><div class="num">8000+</div><div class="lbl">сэтгэл ханамжтай үйлчлүүлэгч</div></div>
+          <div><div class="num">15+</div><div class="lbl">эмчилгээний төрөл</div></div>
+        </div>
+      </div>
+
+      <div class="hero-media hero-video">
+        <video controls playsinline preload="metadata">
+          <source src="{{ media_url('img/interior/Untitled_Video.mp4') }}" type="video/mp4">
+        </video>
+        <div class="hero-float">
+          <span class="dot">✦</span>
+          Эмчийн хяналттай эмчилгээ
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="angled-divider" aria-hidden="true"></div>
+
+  <!-- ============ Манай клиник (real interior photos) ============ -->
+  <section id="clinic-gallery">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2 class="clinic-heading">SKINOLOGY CLINIC</h2>
+        <p>Тав тух, цэвэр ариун орчин, орчин үеийн тоног төхөөрөмж — манай өдөр тутмын ажлын орчин.</p>
+      </div>
+
+      <div class="clinic-gallery" data-reveal>
+        <figure class="clinic-featured">
+          <img src="{{ media_url('img/skinology-HERO.jpg') }}"
+               alt="SKINOLOGY CLINIC — клиникийн гадна орц" loading="lazy" decoding="async">
+          <figcaption class="clinic-cap">Клиникийн орц</figcaption>
+        </figure>
+
+        <div class="clinic-grid">
+          <figure>
+            <img src="{{ media_url('img/huleelgiin uruu.jpg') }}"
+                 alt="SKINOLOGY CLINIC — Хүлээн авах хэсэг" loading="lazy" decoding="async">
+            <figcaption class="clinic-cap">Хүлээн авах хэсэг</figcaption>
+          </figure>
+          <figure>
+            <img src="{{ media_url('img/emchilgeenii uruu.jpg') }}"
+                 alt="SKINOLOGY CLINIC — Эмчилгээний өрөө" loading="lazy" decoding="async">
+            <figcaption class="clinic-cap">Эмчилгээний өрөө</figcaption>
+          </figure>
+          <figure>
+            <img src="{{ media_url('img/filler tarilgiin uruu.jpg') }}"
+                 alt="SKINOLOGY CLINIC — Филлер, тарилгын өрөө" loading="lazy" decoding="async">
+            <figcaption class="clinic-cap">Филлер, тарилгын өрөө</figcaption>
+          </figure>
+          <figure>
+            <img src="{{ media_url('img/laser uruu.jpg') }}"
+                 alt="SKINOLOGY CLINIC — Лазер эмчилгээний өрөө" loading="lazy" decoding="async">
+            <figcaption class="clinic-cap">Лазер эмчилгээний өрөө</figcaption>
+          </figure>
+          <figure>
+            <img src="{{ media_url('img/ARIS ONOSHILGOONII uruu.jpg') }}"
+                 alt="SKINOLOGY CLINIC — Арьс оношилгооны өрөө" loading="lazy" decoding="async">
+            <figcaption class="clinic-cap">Арьс оношилгооны өрөө</figcaption>
+          </figure>
+          <figure>
+            <img src="{{ media_url('img/uurtuu uilchleh coffee shop.jpg') }}"
+                 alt="SKINOLOGY CLINIC — Кофе булан" loading="lazy" decoding="async">
+            <figcaption class="clinic-cap">Кофе булан</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Trust section ============ -->
+  <section class="trust">
+    <div class="container trust-grid" data-reveal>
+      <div class="trust-item">
+        <span class="trust-ico">🗓️</span>
+        <p>2021 оноос хойш тасралтгүй үйл ажиллагаа</p>
+      </div>
+      <div class="trust-item">
+        <span class="trust-ico">🩺</span>
+        <p>Мэргэшсэн эмч, мэргэжилтнүүд</p>
+      </div>
+      <div class="trust-item">
+        <span class="trust-ico">🛡️</span>
+        <p>Халдвар хамгааллын стандартыг мөрддөг</p>
+      </div>
+      <div class="trust-item">
+        <span class="trust-ico">⚙️</span>
+        <p>Орчин үеийн тоног төхөөрөмж</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Services ============ -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Үйлчилгээ</span>
+        <h2>Эмчилгээний чиглэлүүд</h2>
+        <p>Таны арьсны төрөл, зорилгод тохирсон шинжлэх ухаанч шийдэл.</p>
+      </div>
+      <div class="cards">
+        <article class="card card--diagnostics" data-reveal style="--card-img: url('{{ media_url('video/arissudlal.png') }}')">
+          <div class="card-body">
+            <span class="ico">01</span>
+            <h3>АРЬС СУДЛАЛ</h3>
+            <p>Арьсны нарийвчилсан оношилгоо, эмчийн зөвлөгөөнөөс эхэлсэн хувийн эмчилгээний төлөвлөгөө.</p>
+            <a class="more" href="{{ BOOKING_URL }}" target="_blank" rel="noopener">Цаг захиалах →</a>
+          </div>
+        </article>
+        <article class="card card--botox" data-reveal style="--card-img: url('{{ media_url('img/botox filler.jpg') }}')">
+          <div class="card-body">
+            <span class="ico">02</span>
+            <h3>БОТОКС БА ФИЛЛЕР</h3>
+            <p>Үрчлээ арилгах, нүүрний хэлбэржилт засах, уруулын зөөлөн эдийг нөхөж дүүргэх</p>
+            <a class="more" href="{{ BOOKING_URL }}" target="_blank" rel="noopener">Цаг захиалах →</a>
+          </div>
+        </article>
+        <article class="card card--hifu" data-reveal style="--card-img: url('{{ media_url('img/hifu.jpg') }}')">
+          <div class="card-body">
+            <span class="ico">03</span>
+            <h3>MFU-HIFU</h3>
+            <p>Мэсийн бус аргаар арьс чангалах, орчин үеийн MFU-HIFU технологи.</p>
+            <a class="more" href="{{ BOOKING_URL }}" target="_blank" rel="noopener">Цаг захиалах →</a>
+          </div>
+        </article>
+        <article class="card card--booster" data-reveal style="--card-img: url('{{ media_url('img/booster.jpg') }}')">
+          <div class="card-body">
+            <span class="ico">04</span>
+            <h3>АРЬСНЫ ТЭЖЭЭЛИЙН ТАРИЛГА</h3>
+            <p>Арьсыг чийгшүүлж, тэжээлээр хангах скин-бустер тарилгууд.</p>
+            <a class="more" href="{{ BOOKING_URL }}" target="_blank" rel="noopener">Цаг захиалах →</a>
+          </div>
+        </article>
+        <article class="card card--laser" data-reveal style="--card-img: url('{{ media_url('img/laser.jpg') }}')">
+          <div class="card-body">
+            <span class="ico">05</span>
+            <h3>ЛАЗЕР ЭМЧИЛГЭЭ</h3>
+            <p>Толбо, судасжилт, арьсны өнгө жигдрүүлэх орчин үеийн лазер технологи.</p>
+            <a class="more" href="{{ BOOKING_URL }}" target="_blank" rel="noopener">Цаг захиалах →</a>
+          </div>
+        </article>
+        <article class="card card--gold" data-reveal style="--card-img: url('{{ media_url('img/interior/altanutas2.png') }}')">
+          <div class="card-body">
+            <span class="ico">06</span>
+            <h3>АЛТАН УТАС</h3>
+            <p>Нүүрний хэлбэрийг зөөлнөөр өргөж, коллаген үүсгэх алтан утасны эмчилгээ.</p>
+            <a class="more" href="{{ BOOKING_URL }}" target="_blank" rel="noopener">Цаг захиалах →</a>
+          </div>
+        </article>
+        <article class="card card--prp" data-reveal style="--card-img: url('{{ media_url('img/prp.jpg') }}')">
+          <div class="card-body">
+            <span class="ico">07</span>
+            <h3>PRP ЭМЧИЛГЭЭ</h3>
+            <p>Өөрийн цусны ялтасаар баяжуулсан плазмаар арьс, үсний нөхөн сэргээлт.</p>
+            <a class="more" href="{{ BOOKING_URL }}" target="_blank" rel="noopener">Цаг захиалах →</a>
+          </div>
+        </article>
+        <article class="card card--guujuulalt" data-reveal style="--card-img: url('{{ media_url('img/guujuulalt.jpg') }}')">
+          <div class="card-body">
+            <span class="ico">08</span>
+            <h3>ГҮН ЦЭВЭРЛЭГЭЭ, ГУУЖУУЛАЛТ</h3>
+            <p>Арьсыг тэжээлээр хангах, арьсны эрүүл суурийг хангах гүн цэвэрлэгээ.</p>
+            <a class="more" href="{{ BOOKING_URL }}" target="_blank" rel="noopener">Цаг захиалах →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Алтан утас эмчилгээ ============ -->
+  <section id="gold-thread" class="gold-thread">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Premium</span>
+        <h2>АЛТАН УТАС ЭМЧИЛГЭЭ</h2>
+      </div>
+      <div class="thread-grid" data-reveal>
+        <figure class="thread-photo">
+          <img src="{{ media_url('img/interior/altanutas1.jpg') }}"
+               alt="SKINOLOGY CLINIC — Алтан утас эмчилгээ 1" loading="lazy" decoding="async">
+        </figure>
+        <figure class="thread-photo">
+          <img src="{{ media_url('img/interior/altanutas2.png') }}"
+               alt="SKINOLOGY CLINIC — Алтан утас эмчилгээ 2" loading="lazy" decoding="async">
+        </figure>
+      </div>
+      <p class="thread-caption">24К АЛТАН УТАС ЭМЧИЛГЭЭ</p>
+    </div>
+  </section>
+
+  <!-- ============ Яагаад Skinology Clinic ============ -->
+  <section id="why" class="why">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Яагаад бид</span>
+        <h2>Яагаад Skinology Clinic-ийг сонгох вэ?</h2>
+        <p>Эмнэлзүйн мэдлэг, олон улсын стандарт, хувь хүнд тохирсон халамж — эдгээр дээр бид тогтвортой ажилладаг.</p>
+      </div>
+      <div class="why-grid" data-reveal>
+        <div class="why-item">
+          <span class="why-ico">🏅</span>
+          <h3>12+ жилийн туршлага</h3>
+          <p>Мэргэжлийн эмч нарын баг, 2021 оноос хойш тасралтгүй үйл ажиллагаа.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-ico">🤝</span>
+          <h3>8000+ үйлчлүүлэгч</h3>
+          <p>Сэтгэл ханамжтай үйлчлүүлэгчдийн итгэл хүлээсэн үйлчилгээ.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-ico">🧼</span>
+          <h3>Олон улсын стандарт ариутгал</h3>
+          <p>Эмчийн хяналттай, ариутгалын олон улсын стандарт бүхий орчин.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-ico">🔬</span>
+          <h3>Дэлхийн тэргүүлэгч техник</h3>
+          <p>Дэлхийн тэргүүлэгч брэндийн техник, бэлдмэл ашиглана.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-ico">📋</span>
+          <h3>Эмчилгээний дараах хяналт</h3>
+          <p>Эмчилгээний дараах үнэ төлбөргүй хяналт, зөвлөгөө.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-ico">💳</span>
+          <h3>Уян хатан төлбөр</h3>
+          <p>Pocket, Storepay болон лизинг / зээлийн апп-аар төлөх боломжтой.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Our Team ============ -->
+  <section id="team">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Эмч нар</span>
+        <h2>Мэргэжлийн баг</h2>
+        <p>Гэрчилгээжсэн эмч, лазер мэргэжилтнүүд танд халамжтай, аюулгүй үйлчилгээ үзүүлнэ.</p>
+      </div>
+
+      <div class="people">
+        {% for p in [
+          {'name':'Б. Мина',       'role':'Захирал, үүсгэн байгуулагч', 'file':'мина.jpg',      'initials':'БМ', 'lead': true},
+          {'name':'Д. Алтантуул',  'role':'Ерөнхий эмч',                'file':'АЛТАНТУУЛ.jpg', 'initials':'ДА', 'lead': true},
+          {'name':'Бат-Өлзий',     'role':'Халдвар хамгааллын эмч',     'file':'БАТ ӨЛЗИЙ.jpg', 'initials':'БӨ', 'lead': false},
+          {'name':'О. Баатарсүх',  'role':'Яаралтай тусламжийн эмч',    'file':'БААТАРСҮХ.jpg', 'initials':'ОБ', 'lead': false},
+          {'name':'М. Очирдарь',   'role':'Лазер мэргэжилтэн',          'file':'ОЧИР ДАРЬ.jpg', 'initials':'МО', 'lead': false},
+          {'name':'Б. Цэмаа',      'role':'Лазер мэргэжилтэн',          'file':'ЦЭМАА.jpg',     'initials':'БЦ', 'lead': false},
+          {'name':'Б. Хулан',      'role':'Лазер мэргэжилтэн',          'file':'ХУЛАН.jpg',     'initials':'БХ', 'lead': false}
+        ] %}
+        <article class="person{{ ' is-lead' if p.lead }}" data-reveal>
+          <div class="person-photo">
+            <img src="{{ media_url('img/team/' ~ p.file) }}"
+                 alt="{{ p.name }} — {{ p.role }}" loading="lazy" decoding="async"
+                 onerror="this.closest('.person-photo').classList.add('no-img'); this.remove();">
+            <span class="person-monogram" aria-hidden="true">{{ p.initials }}</span>
+          </div>
+          <h3 class="person-name">{{ p.name }}</h3>
+          <p class="person-role">{{ p.role }}</p>
+          <p class="person-hours">🕒 Өдөр бүр 10:00–19:00</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ About ============ -->
+  <section id="about">
+    <div class="container about-grid">
+      <div class="media about-media" data-reveal>
+        <img src="{{ media_url('img/interior/skinology poster.jpg') }}"
+             alt="SKINOLOGY CLINIC — Гоо үзэсгэлэнгээ тодотго"
+             loading="lazy" decoding="async"
+             onerror="this.closest('.media').classList.add('no-img'); this.remove();">
+        <span class="media-mark" aria-hidden="true">SKINOLOGY</span>
+      </div>
+      <div class="about-copy" data-reveal>
+        <span class="eyebrow">Бидний тухай</span>
+        <h2>Арьсны эрүүл мэндэд суурилсан гоо сайхан</h2>
+        <p>
+          SKINOLOGY CLINIC нь дерматологийн эмнэлзүйн мэдлэг, гоо заслын урлагийг хослуулан
+          байгалийн, тэнцвэртэй үр дүнг чухалчилдаг. Эмчилгээ бүр нарийн оношилгоо,
+          эмчийн зөвлөгөөнөөс эхэлдэг.
+        </p>
+        <ul class="about-list">
+          <li>Эмчийн хяналттай, ариутгалын олон улсын стандарт бүхий орчин</li>
+          <li>Дэлхийн тэргүүлэгч брэндийн техник, бэлдмэл</li>
+          <li>Эмчилгээний дараах үнэ төлбөргүй хяналт</li>
+          <li>Төлбөрийн уян хатан нөхцөл: Pocket, Storepay, лизинг / зээл</li>
+          <li>Хувийн мэдээллийн нууцлалыг чандлан хамгаална</li>
+        </ul>
+        <a href="{{ BOOKING_URL }}" class="btn btn-primary" style="margin-top:28px;" target="_blank" rel="noopener">Цаг захиалах</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Технологи, тоног төхөөрөмж ============ -->
+  <section id="technology" class="technology">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Технологи</span>
+        <h2>Орчин үеийн тоног төхөөрөмж</h2>
+        <p>Манай эмчилгээ бүр баталгаажсан, олон улсын стандартын техник дээр суурилдаг.</p>
+      </div>
+      <div class="tech-grid" data-reveal>
+        <figure class="tech-item">
+          <img src="{{ media_url('img/laser.jpg') }}" alt="Лазер эмчилгээний систем" loading="lazy" decoding="async">
+          <figcaption>Лазер эмчилгээний систем</figcaption>
+        </figure>
+        <figure class="tech-item">
+          <img src="{{ media_url('img/hifu.jpg') }}" alt="MFU-HIFU төхөөрөмж" loading="lazy" decoding="async">
+          <figcaption>MFU-HIFU төхөөрөмж</figcaption>
+        </figure>
+        <figure class="tech-item">
+          <img src="{{ media_url('img/botox filler.jpg') }}" alt="Тарилгын эмчилгээний тоног төхөөрөмж" loading="lazy" decoding="async">
+          <figcaption>Тарилгын эмчилгээний тоног төхөөрөмж</figcaption>
+        </figure>
+        <figure class="tech-item">
+          <img src="{{ media_url('img/prp.jpg') }}" alt="PRP эмчилгээний систем" loading="lazy" decoding="async">
+          <figcaption>PRP эмчилгээний систем</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Video ============ -->
+  <section id="video">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Видео</span>
+        <h2>Клиникийн орчин, эмчилгээний танилцуулга</h2>
+        <p>Доорх талбарт MP4 файл эсвэл YouTube видео байршуулна.</p>
+      </div>
+
+      <video class="video-frame" data-reveal controls preload="metadata">
+        <source src="{{ media_url('video/clinic.mp4') }}" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <!-- ============ Gallery / Before-After ============ -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Өмнө ба дараа</span>
+        <h2>Эмчилгээний үр дүн</h2>
+        <p>Бодит үйлчлүүлэгчдийн зөвшөөрснөөр нийтэлсэн зургууд.</p>
+      </div>
+
+      <div class="gallery-grid" data-reveal>
+        {% for i in range(1, 7) %}
+        <div class="media"></div>
+        {% endfor %}
+      </div>
+
+      <h3 class="ba-title">Өмнө / Дараа харьцуулалт</h3>
+      <div class="ba-grid">
+        {% for cap in ['Лазер — толбо цайруулалт', 'Филлер — уруулын дүүралт', 'HIFU — нүүр чангалалт'] %}
+        <div class="ba-card" data-reveal>
+          <div class="ba-pair">
+            <div class="media">
+              <span class="tag">Өмнө</span>
+            </div>
+            <div class="media">
+              <span class="tag">Дараа</span>
+            </div>
+          </div>
+          <div class="cap">{{ cap }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Pricing ============ -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Үнэ</span>
+        <h2>Ил тод үнийн мэдээлэл</h2>
+        <p>Эцсийн үнэ эмчийн үзлэг, эмчилгээний хэмжээнээс хамаарч тодорхойлогдоно.</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card" data-reveal>
+          <h3>Үзлэг зөвлөгөө</h3>
+          <div class="amount">50,000₮ <span>-с эхэлнэ</span></div>
+          <ul>
+            <li>Арьсны нарийвчилсан оношилгоо</li>
+            <li>Мэргэжлийн эмчийн зөвлөгөө</li>
+            <li>Хувийн эмчилгээний төлөвлөгөө</li>
+          </ul>
+          <a href="{{ BOOKING_URL }}" class="btn btn-outline" style="width:100%;justify-content:center;" target="_blank" rel="noopener">Захиалах</a>
+        </div>
+        <div class="price-card featured" data-reveal>
+          <h3>Ботокс / Филлер</h3>
+          <div class="amount">250,000₮ <span>-с эхэлнэ</span></div>
+          <ul>
+            <li>Бүсчилсэн зөвлөгөө, тэмдэглэгээ</li>
+            <li>Дэлхийн брэндийн бэлдмэл</li>
+            <li>2 долоо хоногийн дараах хяналт</li>
+          </ul>
+          <a href="{{ BOOKING_URL }}" class="btn btn-primary" style="width:100%;justify-content:center;" target="_blank" rel="noopener">Захиалах</a>
+        </div>
+        <div class="price-card" data-reveal>
+          <h3>Лазер / HIFU</h3>
+          <div class="amount">190,000₮ <span>-с эхэлнэ</span></div>
+          <ul>
+            <li>Арьсны төрөлд тохирсон горим</li>
+            <li>Мэргэжлийн техникч гүйцэтгэнэ</li>
+            <li>Эмчилгээний дараах арчилгааны зөвлөгөө</li>
+          </ul>
+          <a href="{{ BOOKING_URL }}" class="btn btn-outline" style="width:100%;justify-content:center;" target="_blank" rel="noopener">Захиалах</a>
+        </div>
+      </div>
+      <p class="price-note">* Дэлгэрэнгүй үнийн жагсаалтыг эмнэлэг дээр эсвэл 7777-5888 утсаар лавлана уу. Төлбөрийг Pocket, Storepay болон лизинг / зээлийн апп-аар төлөх боломжтой.</p>
+    </div>
+  </section>
+
+  <!-- ============ Contact ============ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Холбоо барих</span>
+        <h2>Бидэнтэй холбогдоорой</h2>
+        <p>Цаг захиалга, лавлагааг доорх мэдээллээр эсвэл онлайнаар авна уу.</p>
+      </div>
+
+      <div class="contact-grid" data-reveal>
+        <div class="contact-info">
+          <ul class="contact-list">
+            <li>
+              <span class="ci">📍</span>
+              <span><span class="k">Хаяг</span><br><span class="v">Бөхийн өргөөний уулзвар, Милленниум Плаза, 409 тоот</span></span>
+            </li>
+            <li>
+              <span class="ci">📞</span>
+              <span><span class="k">Утас</span><br><span class="v"><a href="tel:+97677775888">7777-5888</a></span></span>
+            </li>
+            <li>
+              <span class="ci">🕒</span>
+              <span><span class="k">Ажлын цаг</span><br><span class="v">Өдөр бүр 10:00–19:00</span></span>
+            </li>
+            <li>
+              <span class="ci">📷</span>
+              <span><span class="k">Instagram</span><br><span class="v"><a href="https://instagram.com/skinology.clinic" target="_blank" rel="noopener">@SKINOLOGY.CLINIC</a></span></span>
+            </li>
+            <li>
+              <span class="ci">💳</span>
+              <span><span class="k">Төлбөр</span><br><span class="v">Pocket, Storepay болон лизинг / зээлийн апп-ууд</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact-cta">
+          <h3>Онлайнаар цаг захиалах</h3>
+          <p>Meditech системээр хүссэн эмч, цагаа сонгон шууд баталгаажуулна.</p>
+          <a href="{{ BOOKING_URL }}" class="btn btn-primary" target="_blank" rel="noopener">Цаг захиалах</a>
+          <a href="{{ url_for('register') }}" class="contact-alt">эсвэл онлайн урьдчилсан бүртгэл үлдээх →</a>
+        </div>
+      </div>
+
+      <div class="contact-map" data-reveal>
+        <iframe
+          src="https://www.google.com/maps?q=Millennium+Plaza+Ulaanbaatar&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="SKINOLOGY CLINIC — байршил"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand"><span class="mark"></span> <span class="brand-name">SKINOLOGY <small>CLINIC</small></span></div>
+          <p class="footer-tag">Dermatology • Aesthetics</p>
+          <p>Арьс гоо заслын мэргэжлийн эмнэлэг.</p>
+        </div>
+        <div>
+          <h4>Цэс</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Нүүр</a></li>
+            <li><a href="#services">Үйлчилгээ</a></li>
+            <li><a href="#team">Эмч нар</a></li>
+            <li><a href="#clinic-gallery">Манай клиник</a></li>
+            <li><a href="#pricing">Үнэ</a></li>
+            <li><a href="#contact">Холбоо барих</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Үйлчилгээ</h4>
+          <ul class="footer-links">
+            <li><a href="#services">Ботокс ба Филлер</a></li>
+            <li><a href="#services">Лазер эмчилгээ</a></li>
+            <li><a href="#services">HIFU өнгөлгөө</a></li>
+            <li><a href="#services">PRP эмчилгээ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Холбоо барих</h4>
+          <p>
+            7777-5888<br>
+            Бөхийн өргөөний уулзвар, Милленниум Плаза, 409<br>
+            Өдөр бүр 10:00–19:00
+          </p>
+          <div class="socials">
+            <a href="https://instagram.com/skinology.clinic" aria-label="Instagram @SKINOLOGY.CLINIC" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4-1.2-.1-1.6-.1-4.7-.1zm0 3.1a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8zm0 1.8a3.1 3.1 0 100 6.2 3.1 3.1 0 000-6.2zm5.1-.3a1.1 1.1 0 110 2.3 1.1 1.1 0 010-2.3z"/></svg>
+            </a>
+            <a href="https://instagram.com/skinology.clinic" class="social-handle" target="_blank" rel="noopener">@SKINOLOGY.CLINIC</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© {{ current_year }} SKINOLOGY CLINIC. Бүх эрх хуулиар хамгаалагдсан.</span>
+        <span><a href="{{ url_for('register') }}">Онлайн бүртгэл</a> · Үйлчилгээний нөхцөл</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

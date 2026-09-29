@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Бүртгэлүүд · SKINOLOGY CLINIC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .admin-page { padding: 40px 20px; }
+    .admin-wrap { max-width: 1024px; margin: 0 auto; }
+    .admin-top { display: flex; align-items: flex-end; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px; margin-bottom: 26px; }
+    .admin-top h1 { font-size: 24px; margin: 10px 0 2px; }
+    .admin-top .count { color: var(--muted); font-size: 14px; }
+    .admin-actions { display: flex; gap: 10px; }
+    .table-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow-sm); }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    th { background: var(--blue-soft); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+    tr:last-child td { border-bottom: 0; }
+    tr:hover td { background: var(--blue-soft); }
+    .empty { padding: 54px 16px; text-align: center; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="admin-page">
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div>
+          <a href="{{ url_for('index') }}" class="brand"><span class="mark"></span> <span class="brand-name">SKINOLOGY <small>ADMIN</small></span></a>
+          <h1>Бүртгэгдсэн мэдээлэл</h1>
+          <div class="count">Нийт {{ total }} бүртгэл</div>
+        </div>
+        <div class="admin-actions">
+          <a class="btn btn-primary" href="{{ url_for('admin_export') }}" style="padding:11px 20px;font-size:14px;">Excel татах</a>
+          <a class="btn btn-outline" href="{{ url_for('admin_logout') }}" style="padding:11px 20px;font-size:14px;">Гарах</a>
+        </div>
+      </div>
+
+      <div class="table-card">
+        {% if rows %}
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>Овог</th><th>Нэр</th><th>Утасны дугаар</th><th>Имэйл</th><th>Бүртгүүлсэн огноо</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r in rows %}
+              <tr>
+                <td>{{ r['id'] }}</td>
+                <td>{{ r['last_name'] }}</td>
+                <td>{{ r['first_name'] }}</td>
+                <td>{{ r['phone'] }}</td>
+                <td>{{ r['email'] }}</td>
+                <td>{{ r['created_at'] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty">Одоогоор бүртгэл алга байна.</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

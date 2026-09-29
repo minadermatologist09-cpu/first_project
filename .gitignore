@@ -1,0 +1,16 @@
+# Том файлууд (GitHub 100MB хязгаар)
+*.zip
+static/video/clinic_original.mp4
+
+# Хэрэглэгчийн бүртгэлийн өгөгдөл
+*.db
+
+# Лог, Python cache
+*.log
+__pycache__/
+
+# Нууц түлхүүрүүд
+.env
+
+# Claude Code түр файл
+.claude/scheduled_tasks.lock

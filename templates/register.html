@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Онлайн бүртгэл — SKINOLOGY CLINIC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="book-wrap">
+
+    <aside class="book-aside">
+      <div>
+        <a href="{{ url_for('index') }}" class="brand">
+          <span class="mark"></span> <span class="brand-name">SKINOLOGY <small>CLINIC</small></span>
+        </a>
+        <h2>Онлайн урьдчилсан бүртгэл</h2>
+        <p>
+          Мэдээллээ үлдээгээрэй. Манай ажилтан тантай холбогдож, эмчийн цагийг
+          баталгаажуулна. Анхны үзлэг зөвлөгөө үнэ төлбөргүй.
+        </p>
+        <ul>
+          <li>Мэргэжлийн эмчийн хувийн зөвлөгөө</li>
+          <li>Танд тохирсон эмчилгээний төлөвлөгөө</li>
+          <li>Төлбөр: Pocket, Storepay, лизинг / зээл</li>
+          <li>Мэдээллийн нууцлал бүрэн хамгаалагдана</li>
+        </ul>
+        <p style="margin-top:22px;font-size:13px;">
+          Шууд захиалах бол:
+          <a href="https://www.meditech.mn/book/skinology" target="_blank" rel="noopener"
+             style="border-bottom:1px solid var(--gold-soft);font-weight:600;">Meditech цаг захиалга →</a>
+        </p>
+      </div>
+      <div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
+          📍 Бөхийн өргөөний уулзвар, Милленниум Плаза, 409<br>
+          📞 7777-5888 &nbsp;·&nbsp; 🕒 Өдөр бүр 10:00–19:00<br>
+          📷 <a href="https://instagram.com/skinology.clinic" target="_blank" rel="noopener">@SKINOLOGY.CLINIC</a>
+        </p>
+        <a href="{{ url_for('index') }}" class="back">← Нүүр хуудас руу буцах</a>
+      </div>
+    </aside>
+
+    <main class="book-main">
+      <div class="book-card">
+        <h1>Цаг захиалах</h1>
+        <p class="sub">Доорх талбаруудыг үнэн зөв бөглөнө үү.</p>
+
+        {% if success %}
+          <div class="alert success">{{ success }}</div>
+        {% elif errors %}
+          <div class="alert error">Зарим талбарт алдаа байна. Шалгаад дахин илгээнэ үү.</div>
+        {% endif %}
+
+        <form method="post" novalidate>
+          <div class="field">
+            <label for="last_name">Овог</label>
+            <input type="text" id="last_name" name="last_name"
+                   value="{{ values.last_name }}"
+                   class="{{ 'invalid' if errors.last_name }}"
+                   placeholder="Жишээ: Батболд" autocomplete="family-name">
+            {% if errors.last_name %}<p class="error-text">{{ errors.last_name }}</p>{% endif %}
+          </div>
+
+          <div class="field">
+            <label for="first_name">Нэр</label>
+            <input type="text" id="first_name" name="first_name"
+                   value="{{ values.first_name }}"
+                   class="{{ 'invalid' if errors.first_name }}"
+                   placeholder="Жишээ: Оюунаа" autocomplete="given-name">
+            {% if errors.first_name %}<p class="error-text">{{ errors.first_name }}</p>{% endif %}
+          </div>
+
+          <div class="field">
+            <label for="phone">
+              Утасны дугаар
+              <span class="hint">— 8 оронтой. Жишээ: {{ phone_example }}</span>
+            </label>
+            <input type="tel" id="phone" name="phone"
+                   value="{{ values.phone }}"
+                   class="{{ 'invalid' if errors.phone }}"
+                   inputmode="numeric" maxlength="8"
+                   placeholder="{{ phone_example }}" autocomplete="tel">
+            {% if errors.phone %}<p class="error-text">{{ errors.phone }}</p>{% endif %}
+          </div>
+
+          <div class="field">
+            <label for="email">
+              Имэйл
+              <span class="hint">— формат: {{ email_example }}</span>
+            </label>
+            <input type="text" id="email" name="email"
+                   value="{{ values.email }}"
+                   class="{{ 'invalid' if errors.email }}"
+                   placeholder="{{ email_example }}" autocomplete="email">
+            {% if errors.email %}<p class="error-text">{{ errors.email }}</p>{% endif %}
+          </div>
+
+          <button type="submit" class="btn btn-primary">Хүсэлт илгээх</button>
+        </form>
+
+        <p class="book-foot">Мэдээлэл Register датабаазад аюулгүй хадгалагдана.</p>
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>
