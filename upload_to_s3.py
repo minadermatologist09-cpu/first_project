@@ -9,6 +9,8 @@ static/ доторх зураг, видеог AWS S3 руу хуулж, замы
   python upload_to_s3.py            # шинэ/өөрчлөгдсөн файлуудыг хуулна
   python upload_to_s3.py --force    # бүгдийг дахин хуулна
   python upload_to_s3.py --dry-run  # юу хуулагдахыг л харуулна
+  python upload_to_s3.py --from-s3  # хуулахгүй, bucket-д байгаа файлуудаар
+                                    # media таблицыг бөглөнө (Render build)
 
 Аль хэдийн ижил хэмжээтэйгээр бүртгэгдсэн файлыг алгасна.
 """
@@ -50,10 +52,46 @@ def iter_media_files():
                 yield path, full
 
 
+def save_media(path, key, content_type, size):
+    with get_db() as conn:
+        conn.execute(
+            """
+            INSERT INTO media (path, s3_key, content_type, size, uploaded_at)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(path) DO UPDATE SET
+                s3_key = excluded.s3_key,
+                content_type = excluded.content_type,
+                size = excluded.size,
+                uploaded_at = excluded.uploaded_at
+            """,
+            (path, key, content_type, size,
+             datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+        )
+
+
+def sync_from_s3(s3):
+    """Bucket-ийн static/ доторх файлуудыг media таблицад бүртгэнэ."""
+    count = 0
+    for page in s3.get_paginator("list_objects_v2").paginate(
+        Bucket=S3_BUCKET, Prefix=S3_PREFIX
+    ):
+        for obj in page.get("Contents", []):
+            key = obj["Key"]
+            path = key[len(S3_PREFIX):]
+            if os.path.splitext(path)[1].lower() not in MEDIA_EXTS:
+                continue
+            content_type = mimetypes.guess_type(path)[0] or "application/octet-stream"
+            save_media(path, key, content_type, obj["Size"])
+            count += 1
+    print(f"Дууслаа: S3-аас {count} файл бүртгэсэн.")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.strip().splitlines()[0])
     parser.add_argument("--force", action="store_true", help="бүгдийг дахин хуулах")
     parser.add_argument("--dry-run", action="store_true", help="хуулахгүй, зөвхөн жагсаах")
+    parser.add_argument("--from-s3", action="store_true",
+                        help="хуулахгүй, bucket-аас media таблицыг бөглөх")
     args = parser.parse_args()
     # Windows консол дээр кирилл файлын нэр хэвлэхэд алдаа гаргахгүйн тулд.
     sys.stdout.reconfigure(encoding="utf-8")
@@ -63,6 +101,10 @@ def main():
 
     init_db()
     s3 = boto3.client("s3", region_name=AWS_REGION)
+
+    if args.from_s3:
+        sync_from_s3(s3)
+        return
 
     with get_db() as conn:
         existing = {
@@ -90,20 +132,7 @@ def main():
             key,
             ExtraArgs={"ContentType": content_type, "CacheControl": CACHE_CONTROL},
         )
-        with get_db() as conn:
-            conn.execute(
-                """
-                INSERT INTO media (path, s3_key, content_type, size, uploaded_at)
-                VALUES (?, ?, ?, ?, ?)
-                ON CONFLICT(path) DO UPDATE SET
-                    s3_key = excluded.s3_key,
-                    content_type = excluded.content_type,
-                    size = excluded.size,
-                    uploaded_at = excluded.uploaded_at
-                """,
-                (path, key, content_type, size,
-                 datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
-            )
+        save_media(path, key, content_type, size)
         uploaded += 1
 
     print(f"Дууслаа: {uploaded} хуулсан, {skipped} алгассан.")
