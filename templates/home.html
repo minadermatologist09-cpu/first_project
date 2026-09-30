@@ -306,18 +306,21 @@
           {'name':'О. Баатарсүх',  'role':'Яаралтай тусламжийн эмч',    'file':'БААТАРСҮХ.jpg', 'initials':'ОБ', 'lead': false},
           {'name':'М. Очирдарь',   'role':'Лазер мэргэжилтэн',          'file':'ОЧИР ДАРЬ.jpg', 'initials':'МО', 'lead': false},
           {'name':'Б. Цэмаа',      'role':'Лазер мэргэжилтэн',          'file':'ЦЭМАА.jpg',     'initials':'БЦ', 'lead': false},
-          {'name':'Б. Хулан',      'role':'Лазер мэргэжилтэн',          'file':'ХУЛАН.jpg',     'initials':'БХ', 'lead': false}
+          {'name':'Б. Хулан',      'role':'Лазер мэргэжилтэн',          'file':'ХУЛАН.jpg',     'initials':'БХ', 'lead': false},
+          {'name':'Б. Урангоо',    'role':'Эрүүл ахуйч эмч',            'path':'img/interior/urangoo ervvlahiuch.jpg', 'initials':'БУ', 'lead': false, 'hours': false}
         ] %}
         <article class="person{{ ' is-lead' if p.lead }}" data-reveal>
           <div class="person-photo">
-            <img src="{{ media_url('img/team/' ~ p.file) }}"
+            <img src="{{ media_url(p.path or 'img/team/' ~ p.file) }}"
                  alt="{{ p.name }} — {{ p.role }}" loading="lazy" decoding="async"
                  onerror="this.closest('.person-photo').classList.add('no-img'); this.remove();">
             <span class="person-monogram" aria-hidden="true">{{ p.initials }}</span>
           </div>
           <h3 class="person-name">{{ p.name }}</h3>
           <p class="person-role">{{ p.role }}</p>
+          {% if p.hours is not sameas false %}
           <p class="person-hours">🕒 Өдөр бүр 10:00–19:00</p>
+          {% endif %}
         </article>
         {% endfor %}
       </div>
@@ -398,39 +401,32 @@
     </div>
   </section>
 
-  <!-- ============ Gallery / Before-After ============ -->
-  <section id="gallery">
+  <!-- ============ Treatment videos (static/videos) ============ -->
+  {% if treatment_videos %}
+  <section id="treatment-videos">
     <div class="container">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Өмнө ба дараа</span>
-        <h2>Эмчилгээний үр дүн</h2>
-        <p>Бодит үйлчлүүлэгчдийн зөвшөөрснөөр нийтэлсэн зургууд.</p>
+        <span class="eyebrow">Видео</span>
+        <h2>Эмчилгээний видео</h2>
+        <p>Манай эмчилгээ, үйлчилгээний явц болон танилцуулга видеонууд.</p>
       </div>
 
-      <div class="gallery-grid" data-reveal>
-        {% for i in range(1, 7) %}
-        <div class="media"></div>
-        {% endfor %}
-      </div>
-
-      <h3 class="ba-title">Өмнө / Дараа харьцуулалт</h3>
-      <div class="ba-grid">
-        {% for item in [
-          {'file': 'img/jowl filler.jpg',                     'cap': 'Jowl filler — эрүү орчмын дүүргэлт'},
-          {'file': 'img/uruul filler before after.jpg',       'cap': 'Уруулын филлер'},
-          {'file': 'img/zaluujuulah bagts before after.jpg',  'cap': 'Залуужуулах багц'}
-        ] %}
-        <figure class="ba-card" data-reveal>
-          <div class="ba-photo">
-            <img src="{{ url_for('static', filename=item.file) }}"
-                 alt="{{ item.cap }} — өмнө ба дараа" loading="lazy" decoding="async">
+      <div class="tv-grid">
+        {% for v in treatment_videos %}
+        <figure class="tv-card" data-reveal>
+          <div class="tv-frame">
+            <video src="{{ url_for('static', filename=v.file) }}#t=0.1"
+                   controls playsinline preload="metadata"
+                   aria-label="{{ v.title }}">
+            </video>
           </div>
-          <figcaption class="cap">{{ item.cap }}</figcaption>
+          <figcaption class="tv-title">{{ v.title }}</figcaption>
         </figure>
         {% endfor %}
       </div>
     </div>
   </section>
+  {% endif %}
 
   <!-- ============ Pricing ============ -->
   <section id="pricing">

@@ -15,6 +15,7 @@ Skinology Clinic — Flask вэб сайт.
 """
 
 import io
+import json
 import os
 import re
 import sqlite3
@@ -63,6 +64,11 @@ EMAIL_EXAMPLE = "ner.ovog@gmail.com"
 # Утасны дугаар: Монголын 8 оронтой дугаар. Жишээ: 99112233
 PHONE_RE = re.compile(r"^\d{8}$")
 PHONE_EXAMPLE = "99112233"
+
+# "Эмчилгээний видео" хэсэг static/videos доторх файлуудыг уншина.
+# Гарчиг нь файлын нэрнээс гарна: "Уруулын_филлер.mp4" -> "Уруулын филлер".
+VIDEOS_DIR = os.path.join(BASE_DIR, "static", "videos")
+VIDEO_EXTS = {".mp4", ".m4v", ".webm"}
 
 EXCEL_HEADERS = ["#", "Овог", "Нэр", "Утасны дугаар", "Имэйл", "Бүртгүүлсэн огноо"]
 
@@ -173,6 +179,44 @@ def validate(form):
     return values, errors
 
 
+def list_treatment_videos():
+    """static/videos доторх тоглуулж болох видеонуудыг буцаана.
+
+    Гарчиг, дарааллыг static/videos/titles.json-оос авна
+    ({"файл.mp4": "Гарчиг"}); тэнд байхгүй файлын гарчиг файлын нэрнээс гарна.
+    """
+    if not os.path.isdir(VIDEOS_DIR):
+        return []
+
+    titles = {}
+    titles_path = os.path.join(VIDEOS_DIR, "titles.json")
+    if os.path.isfile(titles_path):
+        try:
+            with open(titles_path, encoding="utf-8") as f:
+                titles = json.load(f)
+        except (OSError, ValueError):
+            titles = {}
+
+    files = [
+        name for name in os.listdir(VIDEOS_DIR)
+        if os.path.splitext(name)[1].lower() in VIDEO_EXTS
+        and os.path.isfile(os.path.join(VIDEOS_DIR, name))
+        and os.path.getsize(os.path.join(VIDEOS_DIR, name)) > 0
+    ]
+    order = list(titles)
+    files.sort(key=lambda n: (order.index(n) if n in titles else len(order), n.lower()))
+
+    videos = []
+    for name in files:
+        title = titles.get(name)
+        if not title:
+            # "1_Уруулын_филлер" -> "Уруулын филлер" (эхний дугаар нь зөвхөн эрэмбэд).
+            stem = re.sub(r"^\d+[\s._\-]+", "", os.path.splitext(name)[0])
+            title = re.sub(r"[_\-]+", " ", stem).strip()
+        videos.append({"file": f"videos/{name}", "title": title})
+    return videos
+
+
 # --- Нийтлэг контекст --------------------------------------------------
 
 @app.context_processor
@@ -193,7 +237,7 @@ def inject_globals():
 
 @app.route("/")
 def index():
-    return render_template("home.html")
+    return render_template("home.html", treatment_videos=list_treatment_videos())
 
 
 # --- Цаг захиалах / бүртгэл ------------------------------------------

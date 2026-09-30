@@ -840,50 +840,47 @@ section { padding: 104px 0; }
 }
 
 /* ============================================================
-   Gallery / Before & After
+   Treatment videos — files from static/videos. Each frame takes the
+   video's own shape (9:16 reel or 16:9) once its metadata loads.
    ============================================================ */
-#gallery { background: var(--blue-soft); }
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 180px;
-  gap: 18px;
-}
-.gallery-grid .media:nth-child(1),
-.gallery-grid .media:nth-child(6) { grid-row: span 2; }
-
-.ba-title {
-  text-align: center;
-  margin: 64px 0 28px;
-  font-size: 21px;
-  color: var(--navy);
-}
-.ba-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+#treatment-videos { background: var(--blue-soft); }
+/* Flex (not grid) so a short last row — e.g. just two videos — stays centred. */
+.tv-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
   gap: 24px;
 }
-.ba-card {
+.tv-card {
+  flex: 0 1 calc((100% - 48px) / 3);
+  margin: 0;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 14px 14px 18px;
   box-shadow: var(--shadow-sm);
 }
-.ba-card { margin: 0; }
-/* Each photo is a ready-made before/after collage with its own labels, so it
-   is shown whole: contained (never cropped or stretched) in a shared frame. */
-.ba-photo {
-  aspect-ratio: 4 / 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.tv-frame {
+  aspect-ratio: 16 / 9;
   border-radius: calc(var(--radius) - 4px);
   overflow: hidden;
-  background: var(--white);
+  background: var(--navy);
 }
-.ba-photo img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.ba-card .cap { text-align: center; font-size: 14px; font-weight: 600; color: var(--navy); margin-top: 14px; }
+.tv-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--navy);
+}
+.tv-title {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+}
 
 /* ============================================================
    Pricing — clear, easy-to-scan cards; the featured plan is the
@@ -1291,9 +1288,9 @@ section { padding: 104px 0; }
 
 @media (max-width: 1024px) {
   section { padding: 84px 0; }
-  .price-grid, .news-grid, .ba-grid { grid-template-columns: repeat(2, 1fr); }
+  .price-grid, .news-grid { grid-template-columns: repeat(2, 1fr); }
+  .tv-card { flex-basis: calc((100% - 24px) / 2); }
   .people, .why-grid { grid-template-columns: repeat(3, 1fr); }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .tech-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .trust-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1341,17 +1338,15 @@ section { padding: 104px 0; }
   section { padding: 60px 0; }
   .container { padding: 0 18px; }
   .section-head { margin-bottom: 40px; }
-  .cards, .price-grid, .news-grid, .ba-grid, .gallery-grid, .tech-grid, .thread-grid { grid-template-columns: 1fr; }
+  .cards, .price-grid, .news-grid, .tech-grid, .thread-grid { grid-template-columns: 1fr; }
+  .tv-card { flex-basis: 100%; }
   .thread-photo { height: 260px; }
   .footer-grid { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-actions .btn { width: 100%; justify-content: center; }
   .hero-stats { gap: 20px 24px; }
   .hero-stats > div + div { padding-left: 0; border-left: 0; }
-  .ba-title { font-size: 19px; }
-  /* One column: let each collage take its natural height, no empty bands. */
-  .ba-photo { aspect-ratio: auto; }
-  .ba-photo img { height: auto; }
+  .tv-card.is-portrait .tv-frame { max-width: 360px; margin: 0 auto; }
   .footer-bottom { justify-content: center; text-align: center; }
   .trust-grid { grid-template-columns: 1fr; }
   .contact-map { height: 280px; }
@@ -1362,5 +1357,5 @@ section { padding: 104px 0; }
 
 @media (max-width: 430px) {
   .people { grid-template-columns: 1fr; }
-  .person { max-width: 320px; margin: 0 auto; }
+  .person { width: 100%; max-width: 320px; margin: 0 auto; }
 }
