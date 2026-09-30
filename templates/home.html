@@ -415,18 +415,18 @@
 
       <h3 class="ba-title">Өмнө / Дараа харьцуулалт</h3>
       <div class="ba-grid">
-        {% for cap in ['Лазер — толбо цайруулалт', 'Филлер — уруулын дүүралт', 'HIFU — нүүр чангалалт'] %}
-        <div class="ba-card" data-reveal>
-          <div class="ba-pair">
-            <div class="media">
-              <span class="tag">Өмнө</span>
-            </div>
-            <div class="media">
-              <span class="tag">Дараа</span>
-            </div>
+        {% for item in [
+          {'file': 'img/jowl filler.jpg',                     'cap': 'Jowl filler — эрүү орчмын дүүргэлт'},
+          {'file': 'img/uruul filler before after.jpg',       'cap': 'Уруулын филлер'},
+          {'file': 'img/zaluujuulah bagts before after.jpg',  'cap': 'Залуужуулах багц'}
+        ] %}
+        <figure class="ba-card" data-reveal>
+          <div class="ba-photo">
+            <img src="{{ url_for('static', filename=item.file) }}"
+                 alt="{{ item.cap }} — өмнө ба дараа" loading="lazy" decoding="async">
           </div>
-          <div class="cap">{{ cap }}</div>
-        </div>
+          <figcaption class="cap">{{ item.cap }}</figcaption>
+        </figure>
         {% endfor %}
       </div>
     </div>
